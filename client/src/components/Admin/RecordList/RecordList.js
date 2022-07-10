@@ -31,9 +31,11 @@ function RecordList() {
 
         let result = response.data
 
+        // 
+
         setRecordList(result)
 
-        console.log(recordList);
+        // console.log(recordList);
     }
 
 

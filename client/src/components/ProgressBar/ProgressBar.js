@@ -10,7 +10,7 @@ const Progress_bar = ({ status, height = 15 }) => {
     if (status === "pending") {
         bgcolor = 'orange'
         progress = 30
-        text = 'Under Progress'
+        text = 'Pending'
     }
     if (status === "approved") {
         bgcolor = '#99ff66'
@@ -21,6 +21,11 @@ const Progress_bar = ({ status, height = 15 }) => {
         bgcolor = '#99ccff'
         progress = 100
         text = "Completed"
+    }
+    if (status === "rejected") {
+        bgcolor = 'red'
+        progress = 0
+        text = 'Rejected'
     }
 
 

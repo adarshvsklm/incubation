@@ -1,29 +1,29 @@
-import React, { useState ,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import {   decodeToken } from "react-jwt";
+import { decodeToken } from "react-jwt";
 
 
 function ApplyForIncubation() {
 
 
     const [form, setForm] = useState({})
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const token = localStorage.getItem('Usertoken')
     const user = decodeToken(token)
     console.log(user.id);
 
 
     useEffect(() => {
-         console.log(token.id);
+        console.log(token.id);
         if (token) {
-            
+
             if (!user) {
                 localStorage.removeItem('UserToken')
                 navigate('/login')
             } else {
-                 console.log(user);
-             }
+                console.log(user);
+            }
         }
     }, [])
 
@@ -44,7 +44,7 @@ function ApplyForIncubation() {
         console.log(data);
         if (data.status === 200) {
             navigate('/')
-            toast.success(" Application submitted Successfully ",{autoClose:500})
+            toast.success(" Application submitted Successfully ", { autoClose: 500 })
         } else {
             alert('Something went wrong please try again')
         }
@@ -60,6 +60,7 @@ function ApplyForIncubation() {
                     <div className="mb-3 col-6">
                         <label>Name</label>
                         <input
+                            required
                             value={form.name}
                             type="text"
                             className="form-control"
@@ -71,6 +72,7 @@ function ApplyForIncubation() {
                     <div className="mb-3 col-6">
                         <label>Address</label>
                         <input
+                            required
                             value={form.address}
                             type="text"
                             className="form-control"
@@ -84,6 +86,7 @@ function ApplyForIncubation() {
                     <div className="mb-3 col-6">
                         <label>City</label>
                         <input
+                            required
                             value={form.city}
                             type="text"
                             className="form-control"
@@ -96,6 +99,7 @@ function ApplyForIncubation() {
                     <div className="mb-3 col-6">
                         <label>State</label>
                         <input
+                            required
                             value={form.state}
                             type="text"
                             className="form-control"
@@ -109,6 +113,7 @@ function ApplyForIncubation() {
                     <div className="mb-3 col-6">
                         <label>Email</label>
                         <input
+                            required
                             value={form.email}
                             type="text"
                             className="form-control"
@@ -121,6 +126,7 @@ function ApplyForIncubation() {
                     <div className="mb-3 col-6">
                         <label>Phone no</label>
                         <input
+                            required
                             value={form.phone}
                             type="text"
                             className="form-control"
@@ -134,6 +140,7 @@ function ApplyForIncubation() {
                     <div className="mb-3 col-6">
                         <label>Company Name</label>
                         <input
+                            required
                             value={form.companyName}
                             type="text"
                             className="form-control"
@@ -143,13 +150,14 @@ function ApplyForIncubation() {
                         />
                     </div>
 
-                    <div className="mb-3 col-6">
+                    {/* <div className="mb-3 col-6">
                         <input type="file" />
-                    </div>
+                    </div> */}
                 </div>
                 <div className="mb-3 ">
                     <label>Describe Your Team and Background</label>
                     <textarea
+                        required
                         value={form.teamAndBackground}
                         type="text"
                         className="form-control"
@@ -161,6 +169,7 @@ function ApplyForIncubation() {
                 <div className="mb-3 ">
                     <label>Describe Your Company and Products</label>
                     <textarea
+                        required
                         value={form.companyAndProducts}
                         type="text"
                         className="form-control"
@@ -172,6 +181,7 @@ function ApplyForIncubation() {
                 <div className="mb-3 ">
                     <label>Describe the problem you are trying to solve</label>
                     <textarea
+                        required
                         value={form.solvingProblem}
                         type="text"
                         className="form-control"
@@ -184,6 +194,7 @@ function ApplyForIncubation() {
                 <div className="mb-3 ">
                     <label>What is unique about your solution </label>
                     <textarea
+                        required
                         value={form.uniqueness}
                         type="text"
                         className="form-control"
@@ -196,6 +207,7 @@ function ApplyForIncubation() {
                 <div className="mb-3 ">
                     <label> what is your value proposition for the customer</label>
                     <textarea
+                        required
                         value={form.valueProposition}
                         type="text"
                         className="form-control"
@@ -208,6 +220,7 @@ function ApplyForIncubation() {
                 <div className="mb-3 ">
                     <label>Who are your competitors and what is your competative advantage ?</label>
                     <textarea
+                        required
                         value={form.competitors}
                         type="text"
                         className="form-control"
@@ -220,6 +233,7 @@ function ApplyForIncubation() {
                 <div className="mb-3 ">
                     <label>Explain your revenue model</label>
                     <textarea
+                        required
                         value={form.revenueModel}
                         type="text"
                         className="form-control"
@@ -232,6 +246,7 @@ function ApplyForIncubation() {
                 <div className="mb-3 ">
                     <label>What is the potential market size of the product ?</label>
                     <textarea
+                        required
                         value={form.marketSize}
                         type="text"
                         className="form-control"
@@ -244,6 +259,7 @@ function ApplyForIncubation() {
                 <div className="mb-3 ">
                     <label>How do you market or plan to market your product and services </label>
                     <textarea
+                        required
                         value={form.marketing}
                         type="text"
                         className="form-control"
@@ -264,7 +280,7 @@ function ApplyForIncubation() {
                         </label>
                     </div>
                     <div class="form-check mb-4">
-                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"  value= 'virtual'
+                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value='virtual'
                             onClick={(e) => setForm({ ...form, type: e.target.value })}
                         />
                         <label className="form-check-label" htmlFor="flexRadioDefault2">
@@ -275,12 +291,13 @@ function ApplyForIncubation() {
                 <div className="mb-3 ">
                     <label>Upload a detailed bussiness proposal</label>
                     <textarea
+                        required
                         value={form.bussinessProposal}
                         type="text"
                         className="form-control"
                         placeholder="Enter email"
-                    // onChange={(e) => console.log(form)}
-                    onChange={(e) =>setForm({...form,bussinessProposal:e.target.value})}
+                        // onChange={(e) => console.log(form)}
+                        onChange={(e) => setForm({ ...form, bussinessProposal: e.target.value })}
 
                     />
                 </div>

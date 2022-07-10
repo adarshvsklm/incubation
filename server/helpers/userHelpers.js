@@ -6,8 +6,9 @@ const ObjectId = mongoose.Types.ObjectId
 
 module.exports = {
     registerApplication: (details, userId) => {
-        details.userId=userId
-        details.status='pending'
+        details.userId=userId                     
+        details.status='new'
+        // details.isSubmitted = true
         return new Promise(async (resolve, reject) => {
             Applications.create({...details })
                 .then((response) => {

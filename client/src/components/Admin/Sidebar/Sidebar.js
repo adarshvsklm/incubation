@@ -44,6 +44,24 @@ const Sidebar = () => {
         menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
     };
 
+    const token = localStorage.getItem('Admintoken')
+
+
+
+    const handleLogin = () => {
+        if (token) {
+          localStorage.removeItem('Admintoken')
+          navigate('/admin/login')
+        } else {
+          navigate('/admin/login')
+        }
+      }
+
+
+
+
+
+
     return (
         <>
 
@@ -66,16 +84,16 @@ const Sidebar = () => {
                             <Menu iconShape="square">
                                 <MenuItem onClick={()=>navigate('/admin')} icon={<FiHome />}>Applicant List</MenuItem>
                                 <MenuItem onClick={()=>navigate('/admin/view/recordList')} icon={<FaList />}>Record Track</MenuItem>
-                                <MenuItem icon={<FaRegHeart />}>Booking Slots</MenuItem>
-                                <MenuItem icon={<RiPencilLine />}>Schedule Events</MenuItem>
-                                <MenuItem icon={<BiCog />}>Videos</MenuItem>
-                                <MenuItem icon={<BiCog />}>Payments</MenuItem>
+                                <MenuItem onClick={()=>navigate('/admin/view/bookingSlots')} icon={<FaRegHeart />}>Booking Slots</MenuItem>
+                                {/* <MenuItem icon={<RiPencilLine />}>Schedule Events</MenuItem> */}
+                                {/* <MenuItem icon={<BiCog />}>Videos</MenuItem> */}
+                                {/* <MenuItem icon={<BiCog />}>Payments</MenuItem> */}
 
                             </Menu>
                         </SidebarContent>
                         <SidebarFooter>
                             <Menu iconShape="square">
-                                <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
+                                <MenuItem onClick={handleLogin} icon={<FiLogOut />}>{token ? 'LogOut' : 'Login'}</MenuItem>
                             </Menu>
                         </SidebarFooter>
                     </ProSidebar>

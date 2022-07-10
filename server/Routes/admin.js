@@ -80,7 +80,16 @@ router.get('/slots',(req,res)=>{
 
 
 router.get('/slot/update',(req,res)=>{
+    
+    req.query.slotId=parseInt(req.query.slotId)
     console.log(req.query);
+    adminHelpers.updateSlot(req.query)
+    .then((response)=>{
+        console.log(response);
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
 })
 
 

@@ -31,9 +31,9 @@ function Home() {
 
   useEffect(() => {
     // console.log('use effect');
-    // console.log(ViewApplications);
+    console.log(ViewApplications);
     displayUsers()
-  }, [newApplicantsList])
+  }, [pendingApplicantsList])
 
   async function displayUsers() {
     const req = await fetch('http://localhost:9000/admin/applicants/list')
@@ -102,12 +102,12 @@ function Home() {
 
   //add to pending
 
-  const changeStatus = async(id,status) => {
-      console.log(id);
-      const response = await fetch(`http://localhost:9000/admin/user/status/change?id=${id}&status=${status}`)
-      const data=await response.json()
-      console.log(data);
-      setNewApplicantsList(newApplicantsList)
+  const changeStatus = async (id, status) => {
+    console.log(id);
+    const response = await fetch(`http://localhost:9000/admin/user/status/change?id=${id}&status=${status}`)
+    const data = await response.json()
+    console.log(data);
+    setNewApplicantsList(newApplicantsList)
 
   }
 
@@ -434,8 +434,8 @@ function Home() {
                       <td>
                         <input type="button" className='btn btn-secondary' value='Add To Pending'
                           onClick={() => {
-                            let status="pending"
-                            changeStatus(result._id,status)
+                            let status = "pending"
+                            changeStatus(result._id, status)
                           }}
                         />
                       </td>
@@ -503,17 +503,17 @@ function Home() {
                       </td>
                       <td>
                         <input type="button" className='btn btn-success' value='Approve'
-                        onClick={() => {
-                          let status="approved"
-                          changeStatus(result._id,status)
-                        }} />
+                          onClick={() => {
+                            let status = "approved"
+                            changeStatus(result._id, status)
+                          }} />
                       </td>
                       <td>
                         <input type="button" className='btn btn-danger' value='Reject'
-                        onClick={() => {
-                          let status="rejected"
-                          changeStatus(result._id,status)
-                        }} />
+                          onClick={() => {
+                            let status = "rejected"
+                            changeStatus(result._id, status)
+                          }} />
                       </td>
 
 

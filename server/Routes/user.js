@@ -4,6 +4,10 @@ const bcrypt = require('bcryptjs')
 const User = require('../models/userModels')
 const jwt = require('jsonwebtoken')
 const userHelpers = require('../helpers/userHelpers')
+const mongoose = require('mongoose')
+
+const ObjectId = mongoose.Types.ObjectId
+
 
 
 
@@ -13,8 +17,8 @@ router.get('/', (req, res) => {
 
 
 
-router.post('/register', async(req, res) => {
-     console.log(req.body);
+router.post('/register', async (req, res) => {
+    console.log(req.body);
     try {
         const newpassword = await bcrypt.hash(req.body.password, 10)
         await User.create({
@@ -37,27 +41,28 @@ router.post('/register', async(req, res) => {
 router.post('/login', async (req, res) => {
     const user = await User.findOne({
         email: req.body.email,
-     })
+    })
     //  console.log(user);
-     if(!user){
+    if (!user) {
         // console.log(45657886543);
 
-        return res.json({status :400 , error : 'Invalid Login'})
-     }
+        return res.json({ status: 400, error: 'Invalid Login' })
+    }
 
-     const isUserValid = await bcrypt.compare(req.body.password,user.password)
-    
-     if (isUserValid) {
+    const isUserValid = await bcrypt.compare(req.body.password, user.password)
+
+    if (isUserValid) {
         const token = jwt.sign(
             {
-                id:user._id,
+                id: user._id,
                 name: user.name,
                 email: user.email,
+                isSubmitted: user.isSubmitted
             },
             'secret123'
         )
         // console.log('logged in');
-        return res.json({ status: 200, user: token ,userDetails:user})
+        return res.json({ status: 200, user: token, userDetails: user })
     } else {
         return res.json({ status: 400, user: false })
 
@@ -65,14 +70,19 @@ router.post('/login', async (req, res) => {
 
 })
 
-router.post('/incubation/application/:id',(req,res)=>{
-      userHelpers.registerApplication(req.body,req.params.id)
-    .then((response)=>{
-        return res.json(response)
-    })
-    .catch((response)=>{
-        return res.json(response)
-    })
+router.post('/incubation/application/:id', async (req, res) => {
+    console.log(req.params.id)
+
+    User.updateOne({ _id: req.params.id }, { $set: { isSubmitted: true } }).then((res) => { console.log(res); })
+
+
+    userHelpers.registerApplication(req.body, req.params.id)
+        .then((response) => {
+            return res.json(response)
+        })
+        .catch((response) => {
+            return res.json(response)
+        })
 
 })
 
